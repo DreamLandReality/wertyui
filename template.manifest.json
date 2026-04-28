@@ -1,26 +1,7 @@
 {
-  "templateId": "minimal-luxury",
-  "version": "1.0.0",
-  "assetStorage": {
-    "type": "r2",
-    "bucket": "template-assets",
-    "prefix": "templates/minimal-luxury"
-  },
   "gates": [
     {
       "id": "lead-capture",
-      "statePath": "price-unlock.state",
-      "defaultState": "locked",
-      "formState": "modal",
-      "successState": "unlocked",
-      "persistStates": [
-        "unlocked"
-      ],
-      "persist": true,
-      "formSectionId": "price-unlock",
-      "siteToken": null,
-      "submissionEndpoint": null,
-      "supabaseAnonKey": null,
       "actions": [
         {
           "id": "price",
@@ -30,74 +11,26 @@
           "id": "brochure",
           "mode": "download"
         }
-      ]
-    }
-  ],
-  "gateActionOwnership": {
-    "lead-capture": {
-      "price": [
-        "price-unlock"
       ],
-      "brochure": [
-        "brochure"
-      ]
-    }
-  },
-  "leadSources": {
-    "contact": {
-      "label": "Contact",
-      "kind": "contact",
-      "sectionId": "contact-form"
-    },
-    "price-unlock": {
-      "label": "Price Unlock",
-      "kind": "gate",
-      "sectionId": "price-unlock",
-      "gateId": "lead-capture"
-    }
-  },
-  "stateTypes": {
-    "hero.heroMediaType": {
-      "type": "enum",
-      "values": [
-        "image",
-        "carousel",
-        "video"
-      ],
-      "default": "image",
-      "persist": false,
-      "description": "Hero section media display mode"
-    },
-    "media-showcase.mediaType": {
-      "type": "enum",
-      "values": [
-        "image",
-        "video",
-        "3d-image",
-        "3d-video"
-      ],
-      "default": "image",
-      "persist": false,
-      "description": "Media showcase content type"
-    },
-    "price-unlock.state": {
-      "type": "enum",
-      "values": [
-        "locked",
-        "modal",
+      "persist": true,
+      "formState": "modal",
+      "siteToken": "61b9dccf-456d-4647-8dff-29f413143f5c",
+      "statePath": "price-unlock.state",
+      "defaultState": "locked",
+      "successState": "unlocked",
+      "formSectionId": "price-unlock",
+      "persistStates": [
         "unlocked"
       ],
-      "default": "locked",
-      "persist": true,
-      "description": "Price unlock gate state"
+      "supabaseAnonKey": "sb_publishable_-Gf9LXspmXcMJCTebm2EGA_RXQqvkWT",
+      "submissionEndpoint": "https://ryzeqjusawykhpzqavzr.supabase.co/functions/v1/submit-form"
     }
-  },
-  "collections": [],
+  ],
   "pages": [
     {
       "id": "home",
-      "path": "/",
       "name": "Home",
+      "path": "/",
       "required": true,
       "sections": [
         "hero",
@@ -112,34 +45,109 @@
     },
     {
       "id": "404",
-      "path": "/404",
       "name": "404 Error",
+      "path": "/404",
       "required": true,
       "sections": [
         "error-page"
       ]
     }
   ],
-  "globalSections": [
-    "navigation",
-    "footer",
-    "seo"
-  ],
+  "theme": {
+    "data": {
+      "colors": {
+        "muted": "#a8a29e",
+        "border": "#e7e5e4",
+        "primary": "#1c1917",
+        "surface": "#ffffff",
+        "background": "#fafaf9",
+        "primaryForeground": "#ffffff"
+      },
+      "radius": {
+        "base": "0px"
+      },
+      "typography": {
+        "fontSans": "'DM Sans', sans-serif",
+        "fontSerif": "'Cormorant Garamond', serif"
+      }
+    },
+    "colors": {
+      "muted": {
+        "type": "color",
+        "default": "#a8a29e",
+        "uiLabel": "Muted Color"
+      },
+      "border": {
+        "type": "color",
+        "default": "#e7e5e4",
+        "uiLabel": "Border Color"
+      },
+      "primary": {
+        "type": "color",
+        "default": "#1c1917",
+        "uiLabel": "Primary Color"
+      },
+      "surface": {
+        "type": "color",
+        "default": "#ffffff",
+        "uiLabel": "Surface Color"
+      },
+      "background": {
+        "type": "color",
+        "default": "#fafaf9",
+        "uiLabel": "Background Color"
+      },
+      "primaryForeground": {
+        "type": "color",
+        "default": "#ffffff",
+        "uiLabel": "Primary Text"
+      }
+    },
+    "radius": {
+      "base": {
+        "type": "string",
+        "default": "0px",
+        "uiLabel": "Border Radius"
+      }
+    },
+    "typography": {
+      "fontSans": {
+        "type": "string",
+        "default": "'DM Sans', sans-serif",
+        "uiLabel": "Primary Font (Body)"
+      },
+      "fontSerif": {
+        "type": "string",
+        "default": "'Cormorant Garamond', serif",
+        "uiLabel": "Secondary Font (Headings)"
+      }
+    }
+  },
+  "version": "1.0.0",
   "sections": [
     {
       "id": "navigation",
+      "data": {
+        "ctaHref": "#contact",
+        "ctaText": "",
+        "logoText": "MINIMAL"
+      },
       "name": "Navigation Bar",
-      "description": "Top navigation with logo, CTA fields, and section-owned links.",
-      "required": true,
-      "imageSlots": [
-        "logoImageUrl"
-      ],
       "schema": {
         "type": "object",
         "required": [
           "logoText"
         ],
         "properties": {
+          "ctaHref": {
+            "type": "string",
+            "uiLabel": "CTA Link",
+            "uiWidget": "pagePicker"
+          },
+          "ctaText": {
+            "type": "string",
+            "uiLabel": "CTA Text"
+          },
           "logoText": {
             "type": "string",
             "uiLabel": "Logo Text"
@@ -148,36 +156,46 @@
             "type": "string",
             "uiLabel": "Logo Image",
             "uiWidget": "imageUpload"
-          },
-          "ctaText": {
-            "type": "string",
-            "uiLabel": "CTA Text"
-          },
-          "ctaHref": {
-            "type": "string",
-            "uiLabel": "CTA Link",
-            "uiWidget": "pagePicker"
           }
         }
       },
-      "dataType": "object",
       "enabled": true,
-      "data": {
-        "logoText": "MINIMAL",
-        "ctaText": "",
-        "ctaHref": "#contact"
-      },
-      "showInNav": false
+      "dataType": "object",
+      "required": true,
+      "showInNav": false,
+      "imageSlots": [
+        "logoImageUrl"
+      ],
+      "description": "Top navigation with logo, CTA fields, and section-owned links."
     },
     {
       "id": "hero",
+      "data": {
+        "images": [
+          {
+            "alt": "Luxury seaside residential tower at sunset",
+            "src": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg"
+          },
+          {
+            "alt": "Interior living space",
+            "src": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-secondary.jpg"
+          },
+          {
+            "alt": "Architectural detail",
+            "src": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg"
+          }
+        ],
+        "ctaText": "Contact Us",
+        "subtext": "A private oceanfront tower housing just three bespoke residences — each a masterwork of space, light, and uncompromising design.",
+        "headline": "Only Three Residences. Infinite Luxury.",
+        "heroVideo": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/demo-video.mp4",
+        "mobileLayout": "fullscreen",
+        "heroMediaType": "image",
+        "overlayEnabled": true,
+        "backgroundImage": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
+        "backgroundImageAlt": "Luxury oceanfront residential tower"
+      },
       "name": "Hero Section",
-      "description": "Full-height hero with large typography and image.",
-      "required": true,
-      "imageSlots": [
-        "backgroundImage",
-        "src"
-      ],
       "schema": {
         "type": "object",
         "required": [
@@ -186,19 +204,34 @@
           "backgroundImage"
         ],
         "properties": {
-          "headline": {
-            "type": "string",
-            "description": "Main hero headline",
-            "uiLabel": "Headline",
-            "uiOrder": 1,
-            "uiSection": "content"
-          },
-          "subtext": {
-            "type": "string",
-            "description": "Supporting text below headline",
-            "uiLabel": "Subtext",
-            "uiOrder": 2,
-            "uiSection": "content"
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "alt": {
+                  "type": "string",
+                  "uiLabel": "Alt Text"
+                },
+                "src": {
+                  "type": "string",
+                  "uiLabel": "Image",
+                  "uiWidget": "imageUpload"
+                }
+              }
+            },
+            "uiLabel": "Carousel Images",
+            "uiWidget": "repeater",
+            "uiShowWhen": {
+              "value": "carousel",
+              "sibling": "heroMediaType"
+            },
+            "constraints": {
+              "canAdd": true,
+              "maxItems": 10,
+              "minItems": 2,
+              "canRemove": true
+            }
           },
           "ctaText": {
             "type": "string",
@@ -206,324 +239,295 @@
             "uiOrder": 3,
             "uiSection": "content"
           },
-          "backgroundImage": {
+          "subtext": {
             "type": "string",
-            "description": "Hero background image (single image mode)",
-            "uiLabel": "Background Image",
-            "uiWidget": "imageUpload",
-            "uiShowWhen": {
-              "sibling": "heroMediaType",
-              "value": "image"
-            }
+            "uiLabel": "Subtext",
+            "uiOrder": 2,
+            "uiSection": "content",
+            "description": "Supporting text below headline"
           },
-          "backgroundImageAlt": {
+          "headline": {
             "type": "string",
-            "description": "Alt text for the background image",
-            "uiLabel": "Image Alt Text",
-            "aiHint": "Describe the hero background image briefly — setting, mood, subject",
-            "example": "Luxury seaside residential tower at sunset",
-            "uiShowWhen": {
-              "sibling": "heroMediaType",
-              "value": "image"
-            }
+            "uiLabel": "Headline",
+            "uiOrder": 1,
+            "uiSection": "content",
+            "description": "Main hero headline"
           },
           "heroVideo": {
             "type": "string",
             "uiLabel": "Hero Video",
-            "uiWidget": "fileUpload",
             "uiAccept": "video/*",
+            "uiWidget": "fileUpload",
             "uiShowWhen": {
-              "sibling": "heroMediaType",
-              "value": "video"
-            }
-          },
-          "videoAutoplay": {
-            "type": "boolean",
-            "uiLabel": "Autoplay Video",
-            "uiShowWhen": {
-              "sibling": "heroMediaType",
-              "value": "video"
+              "value": "video",
+              "sibling": "heroMediaType"
             }
           },
           "videoMuted": {
             "type": "boolean",
             "uiLabel": "Mute Video",
             "uiShowWhen": {
-              "sibling": "heroMediaType",
-              "value": "video"
-            }
-          },
-          "heroMediaType": {
-            "type": "string",
-            "uiLabel": "Media Type",
-            "uiWidget": "select",
-            "uiOrder": 10,
-            "uiSection": "media",
-            "options": [
-              {
-                "value": "image",
-                "label": "Single Image"
-              },
-              {
-                "value": "carousel",
-                "label": "Carousel"
-              },
-              {
-                "value": "video",
-                "label": "Video"
-              }
-            ]
-          },
-          "images": {
-            "type": "array",
-            "uiLabel": "Carousel Images",
-            "uiWidget": "repeater",
-            "constraints": {
-              "minItems": 2,
-              "maxItems": 10,
-              "canAdd": true,
-              "canRemove": true
-            },
-            "items": {
-              "type": "object",
-              "properties": {
-                "src": {
-                  "type": "string",
-                  "uiLabel": "Image",
-                  "uiWidget": "imageUpload"
-                },
-                "alt": {
-                  "type": "string",
-                  "uiLabel": "Alt Text"
-                }
-              }
-            },
-            "uiShowWhen": {
-              "sibling": "heroMediaType",
-              "value": "carousel"
+              "value": "video",
+              "sibling": "heroMediaType"
             }
           },
           "mobileLayout": {
             "type": "string",
-            "uiLabel": "Mobile Layout",
-            "uiWidget": "select",
-            "uiSection": "layout",
             "options": [
               {
-                "value": "fullscreen",
-                "label": "Full Screen"
+                "label": "Full Screen",
+                "value": "fullscreen"
               },
               {
-                "value": "auto",
-                "label": "Auto (Content Height)"
+                "label": "Auto (Content Height)",
+                "value": "auto"
               }
-            ]
+            ],
+            "uiLabel": "Mobile Layout",
+            "uiWidget": "select",
+            "uiSection": "layout"
+          },
+          "heroMediaType": {
+            "type": "string",
+            "options": [
+              {
+                "label": "Single Image",
+                "value": "image"
+              },
+              {
+                "label": "Carousel",
+                "value": "carousel"
+              },
+              {
+                "label": "Video",
+                "value": "video"
+              }
+            ],
+            "uiLabel": "Media Type",
+            "uiOrder": 10,
+            "uiWidget": "select",
+            "uiSection": "media"
+          },
+          "videoAutoplay": {
+            "type": "boolean",
+            "uiLabel": "Autoplay Video",
+            "uiShowWhen": {
+              "value": "video",
+              "sibling": "heroMediaType"
+            }
           },
           "overlayEnabled": {
             "type": "boolean",
             "uiLabel": "Enable Overlay",
-            "description": "Dark overlay on hero background for text readability",
-            "uiSection": "layout"
+            "uiSection": "layout",
+            "description": "Dark overlay on hero background for text readability"
+          },
+          "backgroundImage": {
+            "type": "string",
+            "uiLabel": "Background Image",
+            "uiWidget": "imageUpload",
+            "uiShowWhen": {
+              "value": "image",
+              "sibling": "heroMediaType"
+            },
+            "description": "Hero background image (single image mode)"
+          },
+          "backgroundImageAlt": {
+            "type": "string",
+            "aiHint": "Describe the hero background image briefly — setting, mood, subject",
+            "example": "Luxury seaside residential tower at sunset",
+            "uiLabel": "Image Alt Text",
+            "uiShowWhen": {
+              "value": "image",
+              "sibling": "heroMediaType"
+            },
+            "description": "Alt text for the background image"
           }
         }
       },
+      "enabled": true,
+      "dataType": "object",
+      "required": true,
+      "showInNav": false,
+      "imageSlots": [
+        "backgroundImage",
+        "src"
+      ],
+      "description": "Full-height hero with large typography and image.",
       "styleControls": {
         "fields": {
-          "headline": [
-            {
-              "type": "buttonGroup",
-              "property": "textAlign",
-              "label": "Alignment",
-              "options": [
-                {
-                  "value": "left",
-                  "label": "Left",
-                  "icon": "align-left"
-                },
-                {
-                  "value": "center",
-                  "label": "Center",
-                  "icon": "align-center"
-                },
-                {
-                  "value": "right",
-                  "label": "Right",
-                  "icon": "align-right"
-                }
-              ],
-              "default": "center"
-            },
-            {
-              "type": "buttonGroup",
-              "property": "fontWeight",
-              "label": "Weight",
-              "options": [
-                {
-                  "value": "300",
-                  "label": "Light"
-                },
-                {
-                  "value": "400",
-                  "label": "Regular"
-                },
-                {
-                  "value": "600",
-                  "label": "Semi"
-                },
-                {
-                  "value": "700",
-                  "label": "Bold"
-                }
-              ],
-              "default": "400"
-            },
-            {
-              "type": "slider",
-              "property": "fontSize",
-              "label": "Font Size",
-              "responsive": true,
-              "min": 1.5,
-              "max": 5,
-              "step": 0.25,
-              "unit": "rem",
-              "default": "3.5rem"
-            },
-            {
-              "type": "colorGrid",
-              "property": "color",
-              "label": "Text Color",
-              "presets": [
-                {
-                  "value": "#ffffff",
-                  "label": "White"
-                },
-                {
-                  "value": "#e7e5e4",
-                  "label": "Light"
-                },
-                {
-                  "value": "#1c1917",
-                  "label": "Dark"
-                }
-              ],
-              "default": "#ffffff"
-            }
-          ],
           "subtext": [
             {
               "type": "buttonGroup",
-              "property": "textAlign",
               "label": "Alignment",
+              "default": "center",
               "options": [
                 {
-                  "value": "left",
+                  "icon": "align-left",
                   "label": "Left",
-                  "icon": "align-left"
+                  "value": "left"
                 },
                 {
-                  "value": "center",
+                  "icon": "align-center",
                   "label": "Center",
-                  "icon": "align-center"
+                  "value": "center"
                 },
                 {
-                  "value": "right",
+                  "icon": "align-right",
                   "label": "Right",
-                  "icon": "align-right"
+                  "value": "right"
                 }
               ],
-              "default": "center"
+              "property": "textAlign"
             },
             {
               "type": "buttonGroup",
-              "property": "fontWeight",
               "label": "Weight",
+              "default": "300",
               "options": [
                 {
-                  "value": "300",
-                  "label": "Light"
+                  "label": "Light",
+                  "value": "300"
                 },
                 {
-                  "value": "400",
-                  "label": "Regular"
+                  "label": "Regular",
+                  "value": "400"
                 },
                 {
-                  "value": "600",
-                  "label": "Semi"
+                  "label": "Semi",
+                  "value": "600"
                 }
               ],
-              "default": "300"
+              "property": "fontWeight"
             },
             {
-              "type": "slider",
-              "property": "fontSize",
-              "label": "Font Size",
-              "responsive": true,
-              "min": 0.875,
               "max": 1.5,
+              "min": 0.875,
               "step": 0.125,
+              "type": "slider",
               "unit": "rem",
-              "default": "1rem"
+              "label": "Font Size",
+              "default": "1rem",
+              "property": "fontSize",
+              "responsive": true
             },
             {
               "type": "colorGrid",
-              "property": "color",
               "label": "Text Color",
+              "default": "rgba(255,255,255,0.8)",
               "presets": [
                 {
-                  "value": "rgba(255,255,255,0.8)",
-                  "label": "White"
+                  "label": "White",
+                  "value": "rgba(255,255,255,0.8)"
                 },
                 {
-                  "value": "rgba(255,255,255,0.5)",
-                  "label": "Muted"
+                  "label": "Muted",
+                  "value": "rgba(255,255,255,0.5)"
                 },
                 {
-                  "value": "#1c1917",
-                  "label": "Dark"
+                  "label": "Dark",
+                  "value": "#1c1917"
                 }
               ],
-              "default": "rgba(255,255,255,0.8)"
+              "property": "color"
+            }
+          ],
+          "headline": [
+            {
+              "type": "buttonGroup",
+              "label": "Alignment",
+              "default": "center",
+              "options": [
+                {
+                  "icon": "align-left",
+                  "label": "Left",
+                  "value": "left"
+                },
+                {
+                  "icon": "align-center",
+                  "label": "Center",
+                  "value": "center"
+                },
+                {
+                  "icon": "align-right",
+                  "label": "Right",
+                  "value": "right"
+                }
+              ],
+              "property": "textAlign"
+            },
+            {
+              "type": "buttonGroup",
+              "label": "Weight",
+              "default": "400",
+              "options": [
+                {
+                  "label": "Light",
+                  "value": "300"
+                },
+                {
+                  "label": "Regular",
+                  "value": "400"
+                },
+                {
+                  "label": "Semi",
+                  "value": "600"
+                },
+                {
+                  "label": "Bold",
+                  "value": "700"
+                }
+              ],
+              "property": "fontWeight"
+            },
+            {
+              "max": 5,
+              "min": 1.5,
+              "step": 0.25,
+              "type": "slider",
+              "unit": "rem",
+              "label": "Font Size",
+              "default": "3.5rem",
+              "property": "fontSize",
+              "responsive": true
+            },
+            {
+              "type": "colorGrid",
+              "label": "Text Color",
+              "default": "#ffffff",
+              "presets": [
+                {
+                  "label": "White",
+                  "value": "#ffffff"
+                },
+                {
+                  "label": "Light",
+                  "value": "#e7e5e4"
+                },
+                {
+                  "label": "Dark",
+                  "value": "#1c1917"
+                }
+              ],
+              "property": "color"
             }
           ]
         }
-      },
-      "dataType": "object",
-      "enabled": true,
-      "data": {
-        "headline": "Only Three Residences. Infinite Luxury.",
-        "subtext": "A private oceanfront tower housing just three bespoke residences — each a masterwork of space, light, and uncompromising design.",
-        "backgroundImage": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
-        "backgroundImageAlt": "Luxury oceanfront residential tower",
-        "heroVideo": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/demo-video.mp4",
-        "ctaText": "Contact Us",
-        "heroMediaType": "image",
-        "images": [
-          {
-            "src": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
-            "alt": "Luxury seaside residential tower at sunset"
-          },
-          {
-            "src": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-secondary.jpg",
-            "alt": "Interior living space"
-          },
-          {
-            "src": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
-            "alt": "Architectural detail"
-          }
-        ],
-        "mobileLayout": "fullscreen",
-        "overlayEnabled": true
-      },
-      "showInNav": false
+      }
     },
     {
       "id": "media-showcase",
+      "data": {
+        "caption": "Explore our properties in stunning detail",
+        "mediaAlt": "Luxury property showcase",
+        "mediaFile": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
+        "mediaType": "image",
+        "videoMuted": true,
+        "sectionTitle": "Immersive Media",
+        "videoAutoplay": false,
+        "sectionEyebrow": "Experience"
+      },
       "name": "Media Showcase",
-      "description": "Display images, videos, or 3D models with model-viewer.",
-      "required": false,
-      "imageSlots": [
-        "mediaFile"
-      ],
       "schema": {
         "type": "object",
         "required": [
@@ -531,45 +535,12 @@
           "mediaFile"
         ],
         "properties": {
-          "sectionEyebrow": {
-            "type": "string",
-            "uiLabel": "Section Eyebrow",
-            "uiOrder": 1,
-            "uiSection": "content"
-          },
-          "sectionTitle": {
-            "type": "string",
-            "uiLabel": "Section Title",
-            "uiOrder": 2,
-            "uiSection": "content"
-          },
           "caption": {
             "type": "string",
             "uiLabel": "Caption",
-            "uiWidget": "textarea",
             "uiOrder": 3,
+            "uiWidget": "textarea",
             "uiSection": "content"
-          },
-          "mediaType": {
-            "type": "string",
-            "uiLabel": "Media Type",
-            "uiWidget": "select",
-            "options": [
-              "image",
-              "video",
-              "3d-image",
-              "3d-video"
-            ],
-            "uiOrder": 10,
-            "uiSection": "media"
-          },
-          "mediaFile": {
-            "type": "string",
-            "uiLabel": "Media File",
-            "uiWidget": "fileUpload",
-            "uiAccept": "image/*,video/*,.glb,.gltf",
-            "uiOrder": 11,
-            "uiSection": "media"
           },
           "mediaAlt": {
             "type": "string",
@@ -577,46 +548,85 @@
             "uiOrder": 12,
             "uiSection": "media"
           },
-          "videoAutoplay": {
-            "type": "boolean",
-            "uiLabel": "Autoplay Video",
-            "uiShowWhen": {
-              "sibling": "mediaType",
-              "value": "video"
-            }
+          "mediaFile": {
+            "type": "string",
+            "uiLabel": "Media File",
+            "uiOrder": 11,
+            "uiAccept": "image/*,video/*,.glb,.gltf",
+            "uiWidget": "fileUpload",
+            "uiSection": "media"
+          },
+          "mediaType": {
+            "type": "string",
+            "options": [
+              "image",
+              "video",
+              "3d-image",
+              "3d-video"
+            ],
+            "uiLabel": "Media Type",
+            "uiOrder": 10,
+            "uiWidget": "select",
+            "uiSection": "media"
           },
           "videoMuted": {
             "type": "boolean",
             "uiLabel": "Mute Video",
             "uiShowWhen": {
-              "sibling": "mediaType",
-              "value": "video"
+              "value": "video",
+              "sibling": "mediaType"
             }
+          },
+          "sectionTitle": {
+            "type": "string",
+            "uiLabel": "Section Title",
+            "uiOrder": 2,
+            "uiSection": "content"
+          },
+          "videoAutoplay": {
+            "type": "boolean",
+            "uiLabel": "Autoplay Video",
+            "uiShowWhen": {
+              "value": "video",
+              "sibling": "mediaType"
+            }
+          },
+          "sectionEyebrow": {
+            "type": "string",
+            "uiLabel": "Section Eyebrow",
+            "uiOrder": 1,
+            "uiSection": "content"
           }
         }
       },
-      "dataType": "object",
       "enabled": true,
-      "data": {
-        "sectionEyebrow": "Experience",
-        "sectionTitle": "Immersive Media",
-        "mediaType": "image",
-        "mediaFile": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
-        "videoAutoplay": false,
-        "videoMuted": true,
-        "mediaAlt": "Luxury property showcase",
-        "caption": "Explore our properties in stunning detail"
-      },
-      "showInNav": true
+      "dataType": "object",
+      "required": false,
+      "showInNav": true,
+      "imageSlots": [
+        "mediaFile"
+      ],
+      "description": "Display images, videos, or 3D models with model-viewer."
     },
     {
       "id": "price-unlock",
+      "data": {
+        "price": "Starting from $4.8M",
+        "state": "locked",
+        "priceNote": "Plus applicable taxes",
+        "siteToken": "61b9dccf-456d-4647-8dff-29f413143f5c",
+        "priceLabel": "Base Price",
+        "modalHeading": "Unlock Pricing",
+        "modalSubtext": "Please provide your details to unlock the full pricing information.",
+        "sectionTitle": "Investment Details",
+        "sectionEyebrow": "Pricing",
+        "modalSubmitText": "Unlock Now",
+        "supabaseAnonKey": "sb_publishable_-Gf9LXspmXcMJCTebm2EGA_RXQqvkWT",
+        "unlockButtonText": "Unlock Price",
+        "submissionEndpoint": "https://ryzeqjusawykhpzqavzr.supabase.co/functions/v1/submit-form",
+        "modalSuccessMessage": "Price unlocked successfully"
+      },
       "name": "Unlock Price",
-      "description": "Price reveal with brochure download and lead capture modal.",
-      "required": false,
-      "imageSlots": [
-        "brochureFile"
-      ],
       "schema": {
         "type": "object",
         "required": [
@@ -624,49 +634,42 @@
           "priceLabel"
         ],
         "properties": {
-          "state": {
-            "type": "string",
-            "uiLabel": "Preview State (Editor Only)",
-            "uiWidget": "select",
-            "options": [
-              {
-                "value": "locked",
-                "label": "Locked (price blurred, unlock button visible)"
-              },
-              {
-                "value": "modal",
-                "label": "Modal Open (contact form visible)"
-              },
-              {
-                "value": "unlocked",
-                "label": "Unlocked (price revealed, success message)"
-              }
-            ],
-            "aiIgnore": true
-          },
-          "sectionEyebrow": {
-            "type": "string",
-            "uiLabel": "Section Eyebrow"
-          },
-          "sectionTitle": {
-            "type": "string",
-            "uiLabel": "Section Title"
-          },
           "price": {
             "type": "string",
             "uiLabel": "Price"
           },
-          "priceLabel": {
+          "state": {
             "type": "string",
-            "uiLabel": "Price Label"
+            "options": [
+              {
+                "label": "Locked (price blurred, unlock button visible)",
+                "value": "locked"
+              },
+              {
+                "label": "Modal Open (contact form visible)",
+                "value": "modal"
+              },
+              {
+                "label": "Unlocked (price revealed, success message)",
+                "value": "unlocked"
+              }
+            ],
+            "uiLabel": "Preview State (Editor Only)",
+            "aiIgnore": true,
+            "uiWidget": "select"
           },
           "priceNote": {
             "type": "string",
             "uiLabel": "Price Note (optional)"
           },
-          "unlockButtonText": {
+          "siteToken": {
             "type": "string",
-            "uiLabel": "Unlock Button Text"
+            "aiIgnore": true,
+            "description": "System Injected — deployment auth token"
+          },
+          "priceLabel": {
+            "type": "string",
+            "uiLabel": "Price Label"
           },
           "modalHeading": {
             "type": "string",
@@ -676,105 +679,50 @@
             "type": "string",
             "uiLabel": "Modal Subtext"
           },
-          "modalSubmitText": {
-            "type": "string",
-            "uiLabel": "Modal Submit Button"
-          },
-          "modalSuccessMessage": {
-            "type": "string",
-            "uiLabel": "Success Message"
-          },
-          "submissionEndpoint": {
-            "type": "string",
-            "description": "System Injected — Supabase Edge Function URL",
-            "aiIgnore": true
-          },
-          "siteToken": {
-            "type": "string",
-            "description": "System Injected — deployment auth token",
-            "aiIgnore": true
-          },
-          "supabaseAnonKey": {
-            "type": "string",
-            "description": "System Injected — Supabase anon key",
-            "aiIgnore": true
-          }
-        }
-      },
-      "dataType": "object",
-      "enabled": true,
-      "data": {
-        "state": "locked",
-        "sectionEyebrow": "Pricing",
-        "sectionTitle": "Investment Details",
-        "price": "Starting from $4.8M",
-        "priceLabel": "Base Price",
-        "priceNote": "Plus applicable taxes",
-        "unlockButtonText": "Unlock Price",
-        "modalHeading": "Unlock Pricing",
-        "modalSubtext": "Please provide your details to unlock the full pricing information.",
-        "modalSubmitText": "Unlock Now",
-        "modalSuccessMessage": "Price unlocked successfully",
-        "submissionEndpoint": null,
-        "siteToken": null,
-        "supabaseAnonKey": null
-      },
-      "showInNav": false
-    },
-    {
-      "id": "amenities",
-      "name": "Amenities",
-      "description": "Repeater list of amenities with icons, titles, and descriptions.",
-      "required": false,
-      "schema": {
-        "type": "object",
-        "required": [
-          "items"
-        ],
-        "properties": {
-          "sectionEyebrow": {
-            "type": "string",
-            "uiLabel": "Section Eyebrow"
-          },
           "sectionTitle": {
             "type": "string",
             "uiLabel": "Section Title"
           },
-          "items": {
-            "type": "array",
-            "uiLabel": "Amenities",
-            "uiWidget": "repeater",
-            "constraints": {
-              "maxItems": 20,
-              "canAdd": true,
-              "canRemove": true
-            },
-            "items": {
-              "type": "object",
-              "properties": {
-                "icon": {
-                  "type": "string",
-                  "uiLabel": "Icon",
-                  "uiWidget": "iconPicker"
-                },
-                "label": {
-                  "type": "string",
-                  "uiLabel": "Label"
-                },
-                "description": {
-                  "type": "string",
-                  "uiLabel": "Description"
-                }
-              }
-            }
+          "sectionEyebrow": {
+            "type": "string",
+            "uiLabel": "Section Eyebrow"
+          },
+          "modalSubmitText": {
+            "type": "string",
+            "uiLabel": "Modal Submit Button"
+          },
+          "supabaseAnonKey": {
+            "type": "string",
+            "aiIgnore": true,
+            "description": "System Injected — Supabase anon key"
+          },
+          "unlockButtonText": {
+            "type": "string",
+            "uiLabel": "Unlock Button Text"
+          },
+          "submissionEndpoint": {
+            "type": "string",
+            "aiIgnore": true,
+            "description": "System Injected — Supabase Edge Function URL"
+          },
+          "modalSuccessMessage": {
+            "type": "string",
+            "uiLabel": "Success Message"
           }
         }
       },
-      "dataType": "object",
       "enabled": true,
+      "dataType": "object",
+      "required": false,
+      "showInNav": false,
+      "imageSlots": [
+        "brochureFile"
+      ],
+      "description": "Price reveal with brochure download and lead capture modal."
+    },
+    {
+      "id": "amenities",
       "data": {
-        "sectionEyebrow": "Features",
-        "sectionTitle": "World-Class Amenities",
         "items": [
           {
             "icon": "lucide:wifi",
@@ -796,41 +744,90 @@
             "label": "Security",
             "description": "Advanced security and surveillance"
           }
-        ]
+        ],
+        "sectionTitle": "World-Class Amenities",
+        "sectionEyebrow": "Features"
       },
-      "showInNav": true
-    },
-    {
-      "id": "testimonials",
-      "name": "Testimonials",
-      "description": "Client testimonials with photos, names, and ratings.",
-      "required": false,
-      "imageSlots": [
-        "items.photo"
-      ],
+      "name": "Amenities",
       "schema": {
         "type": "object",
         "required": [
           "items"
         ],
         "properties": {
-          "sectionEyebrow": {
-            "type": "string",
-            "uiLabel": "Section Eyebrow"
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "icon": {
+                  "type": "string",
+                  "uiLabel": "Icon",
+                  "uiWidget": "iconPicker"
+                },
+                "label": {
+                  "type": "string",
+                  "uiLabel": "Label"
+                },
+                "description": {
+                  "type": "string",
+                  "uiLabel": "Description"
+                }
+              }
+            },
+            "uiLabel": "Amenities",
+            "uiWidget": "repeater",
+            "constraints": {
+              "canAdd": true,
+              "maxItems": 20,
+              "canRemove": true
+            }
           },
           "sectionTitle": {
             "type": "string",
             "uiLabel": "Section Title"
           },
+          "sectionEyebrow": {
+            "type": "string",
+            "uiLabel": "Section Eyebrow"
+          }
+        }
+      },
+      "enabled": true,
+      "dataType": "object",
+      "required": false,
+      "showInNav": true,
+      "description": "Repeater list of amenities with icons, titles, and descriptions."
+    },
+    {
+      "id": "testimonials",
+      "data": {
+        "items": [
+          {
+            "name": "Template Client One",
+            "text": "The attention to detail and quality of finishes exceeded all expectations. This is truly luxury living at its finest.",
+            "photo": null,
+            "rating": 5
+          },
+          {
+            "name": "Template Client Two",
+            "text": "From the first viewing to move-in, the entire experience was seamless. The team's professionalism is unmatched.",
+            "photo": null,
+            "rating": 5
+          }
+        ],
+        "sectionTitle": "What Our Clients Say",
+        "sectionEyebrow": "Testimonials"
+      },
+      "name": "Testimonials",
+      "schema": {
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "properties": {
           "items": {
             "type": "array",
-            "uiLabel": "Testimonials",
-            "uiWidget": "repeater",
-            "constraints": {
-              "maxItems": 10,
-              "canAdd": true,
-              "canRemove": true
-            },
             "items": {
               "type": "object",
               "properties": {
@@ -838,161 +835,172 @@
                   "type": "string",
                   "uiLabel": "Name"
                 },
-                "photo": {
-                  "type": "string",
-                  "uiLabel": "Photo",
-                  "uiWidget": "imageUpload"
-                },
                 "text": {
                   "type": "string",
                   "uiLabel": "Testimonial",
                   "uiWidget": "textarea"
                 },
+                "photo": {
+                  "type": "string",
+                  "uiLabel": "Photo",
+                  "uiWidget": "imageUpload"
+                },
                 "rating": {
+                  "max": 5,
+                  "min": 1,
+                  "step": 1,
                   "type": "number",
                   "uiLabel": "Rating (1-5)",
-                  "uiWidget": "slider",
-                  "min": 1,
-                  "max": 5,
-                  "step": 1
+                  "uiWidget": "slider"
                 }
               }
+            },
+            "uiLabel": "Testimonials",
+            "uiWidget": "repeater",
+            "constraints": {
+              "canAdd": true,
+              "maxItems": 10,
+              "canRemove": true
             }
-          }
-        }
-      },
-      "dataType": "object",
-      "enabled": true,
-      "data": {
-        "sectionEyebrow": "Testimonials",
-        "sectionTitle": "What Our Clients Say",
-        "items": [
-          {
-            "name": "Template Client One",
-            "photo": null,
-            "text": "The attention to detail and quality of finishes exceeded all expectations. This is truly luxury living at its finest.",
-            "rating": 5
-          },
-          {
-            "name": "Template Client Two",
-            "photo": null,
-            "text": "From the first viewing to move-in, the entire experience was seamless. The team's professionalism is unmatched.",
-            "rating": 5
-          }
-        ]
-      },
-      "showInNav": false
-    },
-    {
-      "id": "contact-info",
-      "name": "Contact Information",
-      "description": "Contact details with phone, WhatsApp, email, and map embed.",
-      "required": false,
-      "schema": {
-        "type": "object",
-        "properties": {
-          "sectionEyebrow": {
-            "type": "string",
-            "uiLabel": "Section Eyebrow"
           },
           "sectionTitle": {
             "type": "string",
             "uiLabel": "Section Title"
           },
-          "enablePhone": {
-            "type": "boolean",
-            "uiLabel": "Enable Phone"
+          "sectionEyebrow": {
+            "type": "string",
+            "uiLabel": "Section Eyebrow"
+          }
+        }
+      },
+      "enabled": true,
+      "dataType": "object",
+      "required": false,
+      "showInNav": false,
+      "imageSlots": [
+        "items.photo"
+      ],
+      "description": "Client testimonials with photos, names, and ratings."
+    },
+    {
+      "id": "contact-info",
+      "data": {
+        "email": "info@luxuryproperties.com",
+        "phone": "+1 (555) 123-4567",
+        "whatsapp": "+1 (555) 123-4567",
+        "emailLink": null,
+        "enableMap": false,
+        "enableEmail": true,
+        "enablePhone": true,
+        "mapEmbedUrl": null,
+        "sectionTitle": "Contact Us",
+        "whatsappLink": null,
+        "enableWhatsApp": true,
+        "sectionEyebrow": "Get in Touch"
+      },
+      "name": "Contact Information",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "uiLabel": "Email Address",
+            "uiShowWhen": {
+              "value": true,
+              "sibling": "enableEmail"
+            }
           },
           "phone": {
             "type": "string",
             "uiLabel": "Phone Number",
             "uiShowWhen": {
-              "sibling": "enablePhone",
-              "value": true
+              "value": true,
+              "sibling": "enablePhone"
             }
-          },
-          "enableWhatsApp": {
-            "type": "boolean",
-            "uiLabel": "Enable WhatsApp"
           },
           "whatsapp": {
             "type": "string",
             "uiLabel": "WhatsApp Number",
             "uiShowWhen": {
-              "sibling": "enableWhatsApp",
-              "value": true
-            }
-          },
-          "whatsappLink": {
-            "type": "string",
-            "uiLabel": "WhatsApp Link",
-            "editable": false,
-            "aiIgnore": true
-          },
-          "enableEmail": {
-            "type": "boolean",
-            "uiLabel": "Enable Email"
-          },
-          "email": {
-            "type": "string",
-            "uiLabel": "Email Address",
-            "uiShowWhen": {
-              "sibling": "enableEmail",
-              "value": true
+              "value": true,
+              "sibling": "enableWhatsApp"
             }
           },
           "emailLink": {
             "type": "string",
             "uiLabel": "Email Link",
-            "editable": false,
-            "aiIgnore": true
+            "aiIgnore": true,
+            "editable": false
           },
           "enableMap": {
             "type": "boolean",
             "uiLabel": "Enable Map"
           },
+          "enableEmail": {
+            "type": "boolean",
+            "uiLabel": "Enable Email"
+          },
+          "enablePhone": {
+            "type": "boolean",
+            "uiLabel": "Enable Phone"
+          },
           "mapEmbedUrl": {
             "type": "string",
             "uiLabel": "Map Embed URL",
-            "editable": false,
             "aiIgnore": true,
+            "editable": false,
             "uiShowWhen": {
-              "sibling": "enableMap",
-              "value": true
+              "value": true,
+              "sibling": "enableMap"
             }
+          },
+          "sectionTitle": {
+            "type": "string",
+            "uiLabel": "Section Title"
+          },
+          "whatsappLink": {
+            "type": "string",
+            "uiLabel": "WhatsApp Link",
+            "aiIgnore": true,
+            "editable": false
+          },
+          "enableWhatsApp": {
+            "type": "boolean",
+            "uiLabel": "Enable WhatsApp"
+          },
+          "sectionEyebrow": {
+            "type": "string",
+            "uiLabel": "Section Eyebrow"
           }
         }
       },
-      "dataType": "object",
       "enabled": true,
-      "data": {
-        "sectionEyebrow": "Get in Touch",
-        "sectionTitle": "Contact Us",
-        "enablePhone": true,
-        "phone": "+1 (555) 123-4567",
-        "enableWhatsApp": true,
-        "whatsapp": "+1 (555) 123-4567",
-        "whatsappLink": null,
-        "enableEmail": true,
-        "email": "info@luxuryproperties.com",
-        "emailLink": null,
-        "enableMap": false,
-        "mapEmbedUrl": null
-      },
-      "showInNav": true
+      "dataType": "object",
+      "required": false,
+      "showInNav": true,
+      "description": "Contact details with phone, WhatsApp, email, and map embed."
     },
     {
       "id": "brochure",
+      "data": {
+        "body": "Download our comprehensive brochure to explore the masterplan, architectural details, amenities, and lifestyle offerings in exquisite detail.",
+        "eyebrow": "Discover More",
+        "heading": "Project Brochure",
+        "buttonText": "Download PDF",
+        "brochureFile": "",
+        "backgroundImage": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-secondary.jpg",
+        "backgroundImageAlt": "Interior view"
+      },
       "name": "Project Brochure",
-      "description": "Split-screen section with an image on one side and a brochure download CTA on the other.",
-      "required": false,
-      "enabled": true,
-      "imageSlots": [
-        "backgroundImage"
-      ],
       "schema": {
         "type": "object",
         "properties": {
+          "body": {
+            "type": "string",
+            "uiLabel": "Body Text",
+            "uiWidget": "textarea",
+            "uiSection": "content"
+          },
           "eyebrow": {
             "type": "string",
             "uiLabel": "Eyebrow Text",
@@ -1001,12 +1009,6 @@
           "heading": {
             "type": "string",
             "uiLabel": "Heading",
-            "uiSection": "content"
-          },
-          "body": {
-            "type": "string",
-            "uiLabel": "Body Text",
-            "uiWidget": "textarea",
             "uiSection": "content"
           },
           "buttonText": {
@@ -1033,23 +1035,27 @@
           }
         }
       },
+      "enabled": true,
       "dataType": "object",
-      "data": {
-        "eyebrow": "Discover More",
-        "heading": "Project Brochure",
-        "body": "Download our comprehensive brochure to explore the masterplan, architectural details, amenities, and lifestyle offerings in exquisite detail.",
-        "buttonText": "Download PDF",
-        "brochureFile": "",
-        "backgroundImage": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-secondary.jpg",
-        "backgroundImageAlt": "Interior view"
-      },
-      "showInNav": false
+      "required": false,
+      "showInNav": false,
+      "imageSlots": [
+        "backgroundImage"
+      ],
+      "description": "Split-screen section with an image on one side and a brochure download CTA on the other."
     },
     {
       "id": "contact-form",
+      "data": {
+        "heading": "Inquire",
+        "subtext": "Register your interest and our team will contact you.",
+        "siteToken": "61b9dccf-456d-4647-8dff-29f413143f5c",
+        "submitButton": "Request Details",
+        "successMessage": "We have received your inquiry. Our team will contact you within 24 hours.",
+        "supabaseAnonKey": "sb_publishable_-Gf9LXspmXcMJCTebm2EGA_RXQqvkWT",
+        "submissionEndpoint": "https://ryzeqjusawykhpzqavzr.supabase.co/functions/v1/submit-form"
+      },
       "name": "Contact Form",
-      "description": "Minimal contact form with honeypot spam protection.",
-      "required": true,
       "schema": {
         "type": "object",
         "required": [
@@ -1058,356 +1064,390 @@
         "properties": {
           "heading": {
             "type": "string",
-            "description": "Form section heading",
-            "uiLabel": "Form Heading"
+            "uiLabel": "Form Heading",
+            "description": "Form section heading"
           },
           "subtext": {
             "type": "string",
-            "description": "Supporting text below heading",
-            "uiLabel": "Form Subtext"
-          },
-          "submitButton": {
-            "type": "string",
-            "description": "Submit button label",
-            "uiLabel": "Button Label"
-          },
-          "successMessage": {
-            "type": "string",
-            "description": "Message shown after successful submission",
-            "uiLabel": "Success Message"
-          },
-          "submissionEndpoint": {
-            "type": "string",
-            "description": "System Injected — Supabase Edge Function URL",
-            "aiIgnore": true,
-            "editable": false
+            "uiLabel": "Form Subtext",
+            "description": "Supporting text below heading"
           },
           "siteToken": {
             "type": "string",
-            "description": "System Injected — deployment auth token",
             "aiIgnore": true,
-            "editable": false
+            "editable": false,
+            "description": "System Injected — deployment auth token"
+          },
+          "submitButton": {
+            "type": "string",
+            "uiLabel": "Button Label",
+            "description": "Submit button label"
+          },
+          "successMessage": {
+            "type": "string",
+            "uiLabel": "Success Message",
+            "description": "Message shown after successful submission"
           },
           "supabaseAnonKey": {
             "type": "string",
-            "description": "System Injected — Supabase anon key",
             "aiIgnore": true,
-            "editable": false
+            "editable": false,
+            "description": "System Injected — Supabase anon key"
+          },
+          "submissionEndpoint": {
+            "type": "string",
+            "aiIgnore": true,
+            "editable": false,
+            "description": "System Injected — Supabase Edge Function URL"
           }
         }
       },
+      "enabled": true,
+      "dataType": "object",
+      "required": true,
+      "showInNav": true,
+      "description": "Minimal contact form with honeypot spam protection.",
       "styleControls": {
         "fields": {
           "heading": [
             {
               "type": "buttonGroup",
-              "property": "textAlign",
               "label": "Alignment",
+              "default": "center",
               "options": [
                 {
-                  "value": "left",
+                  "icon": "align-left",
                   "label": "Left",
-                  "icon": "align-left"
+                  "value": "left"
                 },
                 {
-                  "value": "center",
+                  "icon": "align-center",
                   "label": "Center",
-                  "icon": "align-center"
+                  "value": "center"
                 },
                 {
-                  "value": "right",
+                  "icon": "align-right",
                   "label": "Right",
-                  "icon": "align-right"
+                  "value": "right"
                 }
               ],
-              "default": "center"
+              "property": "textAlign"
             },
             {
               "type": "buttonGroup",
-              "property": "fontWeight",
               "label": "Weight",
+              "default": "400",
               "options": [
                 {
-                  "value": "300",
-                  "label": "Light"
+                  "label": "Light",
+                  "value": "300"
                 },
                 {
-                  "value": "400",
-                  "label": "Regular"
+                  "label": "Regular",
+                  "value": "400"
                 },
                 {
-                  "value": "600",
-                  "label": "Semi"
+                  "label": "Semi",
+                  "value": "600"
                 },
                 {
-                  "value": "700",
-                  "label": "Bold"
+                  "label": "Bold",
+                  "value": "700"
                 }
               ],
-              "default": "400"
+              "property": "fontWeight"
             },
             {
-              "type": "slider",
-              "property": "fontSize",
-              "label": "Size",
-              "responsive": true,
-              "min": 1,
               "max": 3,
+              "min": 1,
               "step": 0.25,
+              "type": "slider",
               "unit": "rem",
-              "default": "1.875rem"
+              "label": "Size",
+              "default": "1.875rem",
+              "property": "fontSize",
+              "responsive": true
             },
             {
               "type": "colorGrid",
-              "property": "color",
               "label": "Color",
+              "default": "inherit",
               "presets": [
                 {
-                  "value": "inherit",
-                  "label": "Default"
+                  "label": "Default",
+                  "value": "inherit"
                 },
                 {
-                  "value": "#1c1917",
-                  "label": "Dark"
+                  "label": "Dark",
+                  "value": "#1c1917"
                 },
                 {
-                  "value": "#78716c",
-                  "label": "Muted"
+                  "label": "Muted",
+                  "value": "#78716c"
                 },
                 {
-                  "value": "#ffffff",
-                  "label": "White"
+                  "label": "White",
+                  "value": "#ffffff"
                 }
               ],
-              "default": "inherit"
+              "property": "color"
             }
           ],
           "subtext": [
             {
               "type": "buttonGroup",
-              "property": "textAlign",
               "label": "Alignment",
+              "default": "center",
               "options": [
                 {
-                  "value": "left",
+                  "icon": "align-left",
                   "label": "Left",
-                  "icon": "align-left"
+                  "value": "left"
                 },
                 {
-                  "value": "center",
+                  "icon": "align-center",
                   "label": "Center",
-                  "icon": "align-center"
+                  "value": "center"
                 },
                 {
-                  "value": "right",
+                  "icon": "align-right",
                   "label": "Right",
-                  "icon": "align-right"
+                  "value": "right"
                 }
               ],
-              "default": "center"
+              "property": "textAlign"
             },
             {
-              "type": "slider",
-              "property": "letterSpacing",
-              "label": "Letter Spacing",
-              "min": 0,
               "max": 0.2,
+              "min": 0,
               "step": 0.01,
+              "type": "slider",
               "unit": "em",
-              "default": "0.15em"
+              "label": "Letter Spacing",
+              "default": "0.15em",
+              "property": "letterSpacing"
             },
             {
               "type": "colorGrid",
-              "property": "color",
               "label": "Color",
+              "default": "inherit",
               "presets": [
                 {
-                  "value": "inherit",
-                  "label": "Default"
+                  "label": "Default",
+                  "value": "inherit"
                 },
                 {
-                  "value": "#78716c",
-                  "label": "Muted"
+                  "label": "Muted",
+                  "value": "#78716c"
                 },
                 {
-                  "value": "#a8a29e",
-                  "label": "Light"
+                  "label": "Light",
+                  "value": "#a8a29e"
                 },
                 {
-                  "value": "#ffffff",
-                  "label": "White"
+                  "label": "White",
+                  "value": "#ffffff"
                 }
               ],
-              "default": "inherit"
+              "property": "color"
             }
           ]
         }
-      },
-      "dataType": "object",
-      "enabled": true,
-      "data": {
-        "heading": "Inquire",
-        "subtext": "Register your interest and our team will contact you.",
-        "submitButton": "Request Details",
-        "successMessage": "We have received your inquiry. Our team will contact you within 24 hours.",
-        "submissionEndpoint": null,
-        "siteToken": null,
-        "supabaseAnonKey": null
-      },
-      "showInNav": true
+      }
     },
     {
       "id": "footer",
+      "data": {
+        "branding": "Template by Minimal Luxury",
+        "copyright": "© 2025 Minimal Luxury Template. All rights reserved."
+      },
       "name": "Footer",
-      "description": "Simple footer with copyright and branding.",
-      "required": true,
       "schema": {
         "type": "object",
         "required": [
           "copyright"
         ],
         "properties": {
-          "copyright": {
-            "type": "string",
-            "description": "Copyright notice text",
-            "uiLabel": "Copyright Text"
-          },
           "branding": {
             "type": "string",
-            "description": "Branding / attribution text",
-            "uiLabel": "Branding Text"
+            "uiLabel": "Branding Text",
+            "description": "Branding / attribution text"
+          },
+          "copyright": {
+            "type": "string",
+            "uiLabel": "Copyright Text",
+            "description": "Copyright notice text"
           }
         }
       },
+      "enabled": true,
+      "dataType": "object",
+      "required": true,
+      "showInNav": false,
+      "description": "Simple footer with copyright and branding.",
       "styleControls": {
         "fields": {
-          "copyright": [
-            {
-              "type": "buttonGroup",
-              "property": "textAlign",
-              "label": "Alignment",
-              "options": [
-                {
-                  "value": "left",
-                  "label": "Left",
-                  "icon": "align-left"
-                },
-                {
-                  "value": "center",
-                  "label": "Center",
-                  "icon": "align-center"
-                },
-                {
-                  "value": "right",
-                  "label": "Right",
-                  "icon": "align-right"
-                }
-              ],
-              "default": "left"
-            },
-            {
-              "type": "slider",
-              "property": "fontSize",
-              "label": "Size",
-              "responsive": true,
-              "min": 0.625,
-              "max": 1,
-              "step": 0.125,
-              "unit": "rem",
-              "default": "0.75rem"
-            },
-            {
-              "type": "colorGrid",
-              "property": "color",
-              "label": "Color",
-              "presets": [
-                {
-                  "value": "inherit",
-                  "label": "Default"
-                },
-                {
-                  "value": "#78716c",
-                  "label": "Muted"
-                },
-                {
-                  "value": "#a8a29e",
-                  "label": "Light"
-                },
-                {
-                  "value": "#ffffff",
-                  "label": "White"
-                }
-              ],
-              "default": "inherit"
-            }
-          ],
           "branding": [
             {
               "type": "buttonGroup",
-              "property": "textAlign",
               "label": "Alignment",
+              "default": "left",
               "options": [
                 {
-                  "value": "left",
+                  "icon": "align-left",
                   "label": "Left",
-                  "icon": "align-left"
+                  "value": "left"
                 },
                 {
-                  "value": "center",
+                  "icon": "align-center",
                   "label": "Center",
-                  "icon": "align-center"
+                  "value": "center"
                 },
                 {
-                  "value": "right",
+                  "icon": "align-right",
                   "label": "Right",
-                  "icon": "align-right"
+                  "value": "right"
                 }
               ],
-              "default": "left"
+              "property": "textAlign"
             },
             {
               "type": "colorGrid",
-              "property": "color",
               "label": "Color",
+              "default": "inherit",
               "presets": [
                 {
-                  "value": "inherit",
-                  "label": "Default"
+                  "label": "Default",
+                  "value": "inherit"
                 },
                 {
-                  "value": "#78716c",
-                  "label": "Muted"
+                  "label": "Muted",
+                  "value": "#78716c"
                 },
                 {
-                  "value": "#a8a29e",
-                  "label": "Light"
+                  "label": "Light",
+                  "value": "#a8a29e"
                 },
                 {
-                  "value": "#ffffff",
-                  "label": "White"
+                  "label": "White",
+                  "value": "#ffffff"
                 }
               ],
-              "default": "inherit"
+              "property": "color"
+            }
+          ],
+          "copyright": [
+            {
+              "type": "buttonGroup",
+              "label": "Alignment",
+              "default": "left",
+              "options": [
+                {
+                  "icon": "align-left",
+                  "label": "Left",
+                  "value": "left"
+                },
+                {
+                  "icon": "align-center",
+                  "label": "Center",
+                  "value": "center"
+                },
+                {
+                  "icon": "align-right",
+                  "label": "Right",
+                  "value": "right"
+                }
+              ],
+              "property": "textAlign"
+            },
+            {
+              "max": 1,
+              "min": 0.625,
+              "step": 0.125,
+              "type": "slider",
+              "unit": "rem",
+              "label": "Size",
+              "default": "0.75rem",
+              "property": "fontSize",
+              "responsive": true
+            },
+            {
+              "type": "colorGrid",
+              "label": "Color",
+              "default": "inherit",
+              "presets": [
+                {
+                  "label": "Default",
+                  "value": "inherit"
+                },
+                {
+                  "label": "Muted",
+                  "value": "#78716c"
+                },
+                {
+                  "label": "Light",
+                  "value": "#a8a29e"
+                },
+                {
+                  "label": "White",
+                  "value": "#ffffff"
+                }
+              ],
+              "property": "color"
             }
           ]
         }
-      },
-      "dataType": "object",
-      "enabled": true,
-      "data": {
-        "copyright": "© 2025 Minimal Luxury Template. All rights reserved.",
-        "branding": "Template by Minimal Luxury"
-      },
-      "showInNav": false
+      }
     },
     {
       "id": "seo",
+      "data": {
+        "image": "https://pub-da5fe52c12854625bef20ed173f635f1.r2.dev/shared-defaults/default-hero.jpg",
+        "title": "Minimal Luxury Template",
+        "locale": "en_US",
+        "imageAlt": "Aerial view of a minimal luxury architectural masterpiece",
+        "keywords": [
+          "minimal luxury",
+          "luxury architecture",
+          "modern design",
+          "minimal luxury template",
+          "luxury living"
+        ],
+        "language": "en",
+        "description": "A showcase of minimal luxury architecture and design.",
+        "googleAdsId": null,
+        "metaPixelId": null,
+        "canonicalUrl": null,
+        "structuredData": {
+          "geo": {
+            "latitude": null,
+            "longitude": null
+          },
+          "url": null,
+          "address": {
+            "region": "Template Region",
+            "street": "Template Avenue",
+            "country": "IN",
+            "locality": "Template District",
+            "postalCode": "560066"
+          },
+          "developer": {
+            "url": null,
+            "logo": null,
+            "name": "Minimal Luxury Template"
+          },
+          "datePosted": null,
+          "priceRange": {
+            "low": 5000000,
+            "high": 15000000,
+            "currency": "INR"
+          },
+          "description": "A showcase of minimal luxury architecture and design.",
+          "propertyName": "Minimal Luxury Template",
+          "propertyType": "Apartment"
+        }
+      },
       "name": "SEO & Structured Data",
-      "description": "Meta tags, social sharing image, JSON-LD structured data.",
-      "required": true,
-      "imageSlots": [
-        "image"
-      ],
       "schema": {
         "type": "object",
         "required": [
@@ -1415,103 +1455,148 @@
           "description"
         ],
         "properties": {
-          "title": {
-            "type": "string",
-            "description": "Page title for browser tab and search results",
-            "uiLabel": "Page Title",
-            "aiHint": "Concise page title under 60 chars: property type + location + key feature"
-          },
-          "description": {
-            "type": "string",
-            "description": "Meta description for search results",
-            "uiLabel": "Meta Description",
-            "uiWidget": "textarea",
-            "aiHint": "Compelling summary 120-155 chars with price and top amenities"
-          },
-          "keywords": {
-            "type": "array",
-            "description": "SEO keywords for the property",
-            "uiLabel": "Keywords",
-            "items": {
-              "type": "string"
-            },
-            "aiHint": "5-8 keywords: property type, location, unique features, price segment"
-          },
           "image": {
             "type": "string",
-            "description": "Social sharing image (OG image)",
             "uiLabel": "Social Image",
-            "uiWidget": "imageUpload"
+            "uiWidget": "imageUpload",
+            "description": "Social sharing image (OG image)"
           },
-          "imageAlt": {
+          "title": {
             "type": "string",
-            "description": "Alt text for the social sharing image",
-            "uiLabel": "Social Image Alt Text"
+            "aiHint": "Concise page title under 60 chars: property type + location + key feature",
+            "uiLabel": "Page Title",
+            "description": "Page title for browser tab and search results"
           },
           "locale": {
             "type": "string",
-            "description": "Locale code (e.g. en_US, en_IN)",
-            "uiLabel": "Locale"
+            "uiLabel": "Locale",
+            "description": "Locale code (e.g. en_US, en_IN)"
+          },
+          "imageAlt": {
+            "type": "string",
+            "uiLabel": "Social Image Alt Text",
+            "description": "Alt text for the social sharing image"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "aiHint": "5-8 keywords: property type, location, unique features, price segment",
+            "uiLabel": "Keywords",
+            "description": "SEO keywords for the property"
           },
           "language": {
             "type": "string",
-            "description": "Language code (e.g. en)",
-            "uiLabel": "Language"
+            "uiLabel": "Language",
+            "description": "Language code (e.g. en)"
           },
-          "canonicalUrl": {
+          "description": {
             "type": "string",
-            "description": "Canonical URL — injected at deploy time",
-            "uiLabel": "Canonical URL",
-            "aiIgnore": true,
-            "editable": false
-          },
-          "metaPixelId": {
-            "type": "string",
-            "description": "Meta (Facebook) Pixel ID — numeric ID only, e.g. 1234567890123",
-            "uiLabel": "Meta Pixel ID",
-            "uiSection": "settings",
-            "aiIgnore": true
+            "aiHint": "Compelling summary 120-155 chars with price and top amenities",
+            "uiLabel": "Meta Description",
+            "uiWidget": "textarea",
+            "description": "Meta description for search results"
           },
           "googleAdsId": {
             "type": "string",
-            "description": "Google Ads Measurement ID — e.g. AW-123456789",
             "uiLabel": "Google Ads ID",
+            "aiIgnore": true,
             "uiSection": "settings",
-            "aiIgnore": true
+            "description": "Google Ads Measurement ID — e.g. AW-123456789"
+          },
+          "metaPixelId": {
+            "type": "string",
+            "uiLabel": "Meta Pixel ID",
+            "aiIgnore": true,
+            "uiSection": "settings",
+            "description": "Meta (Facebook) Pixel ID — numeric ID only, e.g. 1234567890123"
+          },
+          "canonicalUrl": {
+            "type": "string",
+            "uiLabel": "Canonical URL",
+            "aiIgnore": true,
+            "editable": false,
+            "description": "Canonical URL — injected at deploy time"
           },
           "structuredData": {
             "type": "object",
-            "description": "JSON-LD structured data fields",
             "uiLabel": "Structured Data",
             "properties": {
-              "propertyName": {
-                "type": "string",
-                "uiLabel": "Property Name",
-                "aiHint": "Full property or project name"
-              },
-              "propertyType": {
-                "type": "string",
-                "uiLabel": "Property Type",
-                "aiHint": "e.g. Apartment, Villa, Penthouse, Studio, Townhouse"
-              },
-              "description": {
-                "type": "string",
-                "uiLabel": "Property Description",
-                "aiHint": "Detailed property description for structured data"
+              "geo": {
+                "type": "object",
+                "uiLabel": "Coordinates",
+                "properties": {
+                  "latitude": {
+                    "type": "number",
+                    "uiLabel": "Latitude"
+                  },
+                  "longitude": {
+                    "type": "number",
+                    "uiLabel": "Longitude"
+                  }
+                }
               },
               "url": {
                 "type": "string",
-                "description": "Injected at deploy time",
                 "uiLabel": "Property URL",
                 "aiIgnore": true,
-                "editable": false
+                "editable": false,
+                "description": "Injected at deploy time"
+              },
+              "address": {
+                "type": "object",
+                "uiLabel": "Address",
+                "properties": {
+                  "region": {
+                    "type": "string",
+                    "aiHint": "State, emirate, or administrative region",
+                    "uiLabel": "State / Region"
+                  },
+                  "street": {
+                    "type": "string",
+                    "uiLabel": "Street Address"
+                  },
+                  "country": {
+                    "type": "string",
+                    "aiHint": "ISO 3166-1 alpha-2 country code: IN, AE, US, SG, etc.",
+                    "uiLabel": "Country (ISO 3166-1)"
+                  },
+                  "locality": {
+                    "type": "string",
+                    "aiHint": "City or neighborhood name",
+                    "uiLabel": "City / Locality"
+                  },
+                  "postalCode": {
+                    "type": "string",
+                    "uiLabel": "Postal Code"
+                  }
+                }
+              },
+              "developer": {
+                "type": "object",
+                "uiLabel": "Developer / Agent",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "uiLabel": "Developer Website"
+                  },
+                  "logo": {
+                    "type": "string",
+                    "uiLabel": "Developer Logo URL"
+                  },
+                  "name": {
+                    "type": "string",
+                    "uiLabel": "Developer Name"
+                  }
+                }
               },
               "datePosted": {
                 "type": "string",
-                "description": "Injected at deploy time",
                 "uiLabel": "Date Posted",
                 "aiIgnore": true,
-                "editable": false
+                "editable": false,
+                "description": "Injected at deploy time"
               },
               "priceRange": {
                 "type": "object",
@@ -1527,131 +1612,49 @@
                   },
                   "currency": {
                     "type": "string",
-                    "uiLabel": "Currency (ISO 4217)",
-                    "aiHint": "ISO 4217 currency code: INR, AED, USD, SGD, etc."
+                    "aiHint": "ISO 4217 currency code: INR, AED, USD, SGD, etc.",
+                    "uiLabel": "Currency (ISO 4217)"
                   }
                 }
               },
-              "address": {
-                "type": "object",
-                "uiLabel": "Address",
-                "properties": {
-                  "street": {
-                    "type": "string",
-                    "uiLabel": "Street Address"
-                  },
-                  "locality": {
-                    "type": "string",
-                    "uiLabel": "City / Locality",
-                    "aiHint": "City or neighborhood name"
-                  },
-                  "region": {
-                    "type": "string",
-                    "uiLabel": "State / Region",
-                    "aiHint": "State, emirate, or administrative region"
-                  },
-                  "postalCode": {
-                    "type": "string",
-                    "uiLabel": "Postal Code"
-                  },
-                  "country": {
-                    "type": "string",
-                    "uiLabel": "Country (ISO 3166-1)",
-                    "aiHint": "ISO 3166-1 alpha-2 country code: IN, AE, US, SG, etc."
-                  }
-                }
+              "description": {
+                "type": "string",
+                "aiHint": "Detailed property description for structured data",
+                "uiLabel": "Property Description"
               },
-              "geo": {
-                "type": "object",
-                "uiLabel": "Coordinates",
-                "properties": {
-                  "latitude": {
-                    "type": "number",
-                    "uiLabel": "Latitude"
-                  },
-                  "longitude": {
-                    "type": "number",
-                    "uiLabel": "Longitude"
-                  }
-                }
+              "propertyName": {
+                "type": "string",
+                "aiHint": "Full property or project name",
+                "uiLabel": "Property Name"
               },
-              "developer": {
-                "type": "object",
-                "uiLabel": "Developer / Agent",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "uiLabel": "Developer Name"
-                  },
-                  "url": {
-                    "type": "string",
-                    "uiLabel": "Developer Website"
-                  },
-                  "logo": {
-                    "type": "string",
-                    "uiLabel": "Developer Logo URL"
-                  }
-                }
+              "propertyType": {
+                "type": "string",
+                "aiHint": "e.g. Apartment, Villa, Penthouse, Studio, Townhouse",
+                "uiLabel": "Property Type"
               }
-            }
+            },
+            "description": "JSON-LD structured data fields"
           }
         }
       },
-      "dataType": "object",
       "enabled": true,
-      "data": {
-        "title": "Minimal Luxury Template",
-        "description": "A showcase of minimal luxury architecture and design.",
-        "keywords": [
-          "minimal luxury",
-          "luxury architecture",
-          "modern design",
-          "minimal luxury template",
-          "luxury living"
-        ],
-        "image": null,
-        "imageAlt": "Aerial view of a minimal luxury architectural masterpiece",
-        "locale": "en_US",
-        "language": "en",
-        "canonicalUrl": null,
-        "metaPixelId": null,
-        "googleAdsId": null,
-        "structuredData": {
-          "propertyName": "Minimal Luxury Template",
-          "propertyType": "Apartment",
-          "description": "A showcase of minimal luxury architecture and design.",
-          "url": null,
-          "datePosted": null,
-          "priceRange": {
-            "low": 5000000,
-            "high": 15000000,
-            "currency": "INR"
-          },
-          "address": {
-            "street": "Template Avenue",
-            "locality": "Template District",
-            "region": "Template Region",
-            "postalCode": "560066",
-            "country": "IN"
-          },
-          "geo": {
-            "latitude": null,
-            "longitude": null
-          },
-          "developer": {
-            "name": "Minimal Luxury Template",
-            "url": null,
-            "logo": null
-          }
-        }
-      },
-      "showInNav": false
+      "dataType": "object",
+      "required": true,
+      "showInNav": false,
+      "imageSlots": [
+        "image"
+      ],
+      "description": "Meta tags, social sharing image, JSON-LD structured data."
     },
     {
       "id": "error-page",
+      "data": {
+        "errorCode": "404",
+        "errorTitle": "Page Not Found",
+        "errorMessage": "The page you're looking for doesn't exist or has been moved.",
+        "returnHomeText": "Return Home"
+      },
       "name": "404 Error Page",
-      "description": "Customizable 404 error page content.",
-      "required": true,
       "schema": {
         "type": "object",
         "required": [
@@ -1661,199 +1664,209 @@
         "properties": {
           "errorCode": {
             "type": "string",
-            "description": "Error code (e.g. 404)",
-            "uiLabel": "Error Code"
+            "uiLabel": "Error Code",
+            "description": "Error code (e.g. 404)"
           },
           "errorTitle": {
             "type": "string",
-            "description": "Error page title",
-            "uiLabel": "Title"
+            "uiLabel": "Title",
+            "description": "Error page title"
           },
           "errorMessage": {
             "type": "string",
-            "description": "Error description message",
             "uiLabel": "Message",
-            "uiWidget": "textarea"
+            "uiWidget": "textarea",
+            "description": "Error description message"
           },
           "returnHomeText": {
             "type": "string",
-            "description": "Return link text",
-            "uiLabel": "Return Button Text"
+            "uiLabel": "Return Button Text",
+            "description": "Return link text"
           }
         }
       },
+      "enabled": true,
+      "dataType": "object",
+      "required": true,
+      "showInNav": false,
+      "description": "Customizable 404 error page content.",
       "styleControls": {
         "fields": {
           "errorCode": [
             {
-              "type": "slider",
-              "property": "fontSize",
-              "label": "Size",
-              "responsive": true,
-              "min": 3,
               "max": 10,
+              "min": 3,
               "step": 0.5,
+              "type": "slider",
               "unit": "rem",
-              "default": "3.75rem"
+              "label": "Size",
+              "default": "3.75rem",
+              "property": "fontSize",
+              "responsive": true
             },
             {
               "type": "buttonGroup",
-              "property": "fontWeight",
               "label": "Weight",
+              "default": "700",
               "options": [
                 {
-                  "value": "300",
-                  "label": "Light"
+                  "label": "Light",
+                  "value": "300"
                 },
                 {
-                  "value": "700",
-                  "label": "Bold"
+                  "label": "Bold",
+                  "value": "700"
                 },
                 {
-                  "value": "900",
-                  "label": "Black"
+                  "label": "Black",
+                  "value": "900"
                 }
               ],
-              "default": "700"
+              "property": "fontWeight"
             },
             {
               "type": "colorGrid",
-              "property": "color",
               "label": "Color",
+              "default": "inherit",
               "presets": [
                 {
-                  "value": "inherit",
-                  "label": "Default"
+                  "label": "Default",
+                  "value": "inherit"
                 },
                 {
-                  "value": "#78716c",
-                  "label": "Muted"
+                  "label": "Muted",
+                  "value": "#78716c"
                 },
                 {
-                  "value": "#d6d3d1",
-                  "label": "Light"
+                  "label": "Light",
+                  "value": "#d6d3d1"
                 }
               ],
-              "default": "inherit"
+              "property": "color"
             }
           ],
           "errorTitle": [
             {
-              "type": "slider",
-              "property": "fontSize",
-              "label": "Size",
-              "responsive": true,
-              "min": 1,
               "max": 3,
+              "min": 1,
               "step": 0.25,
+              "type": "slider",
               "unit": "rem",
-              "default": "1.5rem"
+              "label": "Size",
+              "default": "1.5rem",
+              "property": "fontSize",
+              "responsive": true
             },
             {
               "type": "colorGrid",
-              "property": "color",
               "label": "Color",
+              "default": "inherit",
               "presets": [
                 {
-                  "value": "inherit",
-                  "label": "Default"
+                  "label": "Default",
+                  "value": "inherit"
                 },
                 {
-                  "value": "#1c1917",
-                  "label": "Dark"
+                  "label": "Dark",
+                  "value": "#1c1917"
                 },
                 {
-                  "value": "#78716c",
-                  "label": "Muted"
+                  "label": "Muted",
+                  "value": "#78716c"
                 }
               ],
-              "default": "inherit"
+              "property": "color"
             }
           ],
           "errorMessage": [
             {
-              "type": "slider",
-              "property": "fontSize",
-              "label": "Size",
-              "responsive": true,
-              "min": 0.75,
               "max": 1.5,
+              "min": 0.75,
               "step": 0.125,
+              "type": "slider",
               "unit": "rem",
-              "default": "0.875rem"
+              "label": "Size",
+              "default": "0.875rem",
+              "property": "fontSize",
+              "responsive": true
             },
             {
               "type": "colorGrid",
-              "property": "color",
               "label": "Color",
+              "default": "inherit",
               "presets": [
                 {
-                  "value": "inherit",
-                  "label": "Default"
+                  "label": "Default",
+                  "value": "inherit"
                 },
                 {
-                  "value": "#78716c",
-                  "label": "Muted"
+                  "label": "Muted",
+                  "value": "#78716c"
                 },
                 {
-                  "value": "#a8a29e",
-                  "label": "Light"
+                  "label": "Light",
+                  "value": "#a8a29e"
                 }
               ],
-              "default": "inherit"
+              "property": "color"
             }
           ],
           "returnHomeText": [
             {
-              "type": "slider",
-              "property": "fontSize",
-              "label": "Size",
-              "responsive": true,
-              "min": 0.75,
               "max": 1.25,
+              "min": 0.75,
               "step": 0.125,
+              "type": "slider",
               "unit": "rem",
-              "default": "0.875rem"
+              "label": "Size",
+              "default": "0.875rem",
+              "property": "fontSize",
+              "responsive": true
             },
             {
               "type": "colorGrid",
-              "property": "color",
               "label": "Color",
+              "default": "inherit",
               "presets": [
                 {
-                  "value": "inherit",
-                  "label": "Default"
+                  "label": "Default",
+                  "value": "inherit"
                 },
                 {
-                  "value": "#1c1917",
-                  "label": "Dark"
+                  "label": "Dark",
+                  "value": "#1c1917"
                 },
                 {
-                  "value": "#b45309",
-                  "label": "Amber"
+                  "label": "Amber",
+                  "value": "#b45309"
                 }
               ],
-              "default": "inherit"
+              "property": "color"
             }
           ]
         }
-      },
-      "dataType": "object",
-      "enabled": true,
-      "data": {
-        "errorCode": "404",
-        "errorTitle": "Page Not Found",
-        "errorMessage": "The page you're looking for doesn't exist or has been moved.",
-        "returnHomeText": "Return Home"
-      },
-      "showInNav": false
+      }
     },
     {
       "id": "theme",
+      "data": {
+        "colors": {
+          "muted": "#a8a29e",
+          "border": "#e7e5e4",
+          "primary": "#1c1917",
+          "surface": "#ffffff",
+          "background": "#fafaf9",
+          "primaryForeground": "#ffffff"
+        },
+        "radius": {
+          "base": "0px"
+        },
+        "typography": {
+          "fontSans": "'DM Sans', sans-serif",
+          "fontSerif": "'Cormorant Garamond', serif"
+        }
+      },
       "name": "Theme",
-      "description": "Global visual theme: colors, typography and border radius",
-      "dataType": "object",
-      "required": false,
       "schema": {
         "type": "object",
         "properties": {
@@ -1861,22 +1874,6 @@
             "type": "object",
             "uiLabel": "Colors",
             "properties": {
-              "primary": {
-                "type": "color",
-                "uiLabel": "Primary Color"
-              },
-              "primaryForeground": {
-                "type": "color",
-                "uiLabel": "Primary Text"
-              },
-              "background": {
-                "type": "color",
-                "uiLabel": "Background"
-              },
-              "surface": {
-                "type": "color",
-                "uiLabel": "Surface"
-              },
               "muted": {
                 "type": "color",
                 "uiLabel": "Muted Text"
@@ -1884,6 +1881,32 @@
               "border": {
                 "type": "color",
                 "uiLabel": "Border"
+              },
+              "primary": {
+                "type": "color",
+                "uiLabel": "Primary Color"
+              },
+              "surface": {
+                "type": "color",
+                "uiLabel": "Surface"
+              },
+              "background": {
+                "type": "color",
+                "uiLabel": "Background"
+              },
+              "primaryForeground": {
+                "type": "color",
+                "uiLabel": "Primary Text"
+              }
+            }
+          },
+          "radius": {
+            "type": "object",
+            "uiLabel": "Border Radius",
+            "properties": {
+              "base": {
+                "type": "string",
+                "uiLabel": "Border Radius (e.g. 0px, 4px)"
               }
             }
           },
@@ -1900,107 +1923,85 @@
                 "uiLabel": "Heading Font"
               }
             }
-          },
-          "radius": {
-            "type": "object",
-            "uiLabel": "Border Radius",
-            "properties": {
-              "base": {
-                "type": "string",
-                "uiLabel": "Border Radius (e.g. 0px, 4px)"
-              }
-            }
           }
         }
       },
-      "data": {
-        "colors": {
-          "primary": "#1c1917",
-          "primaryForeground": "#ffffff",
-          "background": "#fafaf9",
-          "surface": "#ffffff",
-          "muted": "#a8a29e",
-          "border": "#e7e5e4"
-        },
-        "typography": {
-          "fontSans": "'DM Sans', sans-serif",
-          "fontSerif": "'Cormorant Garamond', serif"
-        },
-        "radius": {
-          "base": "0px"
-        }
-      },
-      "showInNav": false
+      "dataType": "object",
+      "required": false,
+      "showInNav": false,
+      "description": "Global visual theme: colors, typography and border radius",
+      "enabled": true
     }
   ],
-  "theme": {
-    "colors": {
-      "primary": {
-        "type": "color",
-        "uiLabel": "Primary Color",
-        "default": "#1c1917"
-      },
-      "primaryForeground": {
-        "type": "color",
-        "uiLabel": "Primary Text",
-        "default": "#ffffff"
-      },
-      "background": {
-        "type": "color",
-        "uiLabel": "Background Color",
-        "default": "#fafaf9"
-      },
-      "surface": {
-        "type": "color",
-        "uiLabel": "Surface Color",
-        "default": "#ffffff"
-      },
-      "muted": {
-        "type": "color",
-        "uiLabel": "Muted Color",
-        "default": "#a8a29e"
-      },
-      "border": {
-        "type": "color",
-        "uiLabel": "Border Color",
-        "default": "#e7e5e4"
-      }
+  "stateTypes": {
+    "hero.heroMediaType": {
+      "type": "enum",
+      "values": [
+        "image",
+        "carousel",
+        "video"
+      ],
+      "default": "image",
+      "persist": false,
+      "description": "Hero section media display mode"
     },
-    "typography": {
-      "fontSans": {
-        "type": "string",
-        "uiLabel": "Primary Font (Body)",
-        "default": "'DM Sans', sans-serif"
-      },
-      "fontSerif": {
-        "type": "string",
-        "uiLabel": "Secondary Font (Headings)",
-        "default": "'Cormorant Garamond', serif"
-      }
+    "price-unlock.state": {
+      "type": "enum",
+      "values": [
+        "locked",
+        "modal",
+        "unlocked"
+      ],
+      "default": "locked",
+      "persist": true,
+      "description": "Price unlock gate state"
     },
-    "radius": {
-      "base": {
-        "type": "string",
-        "uiLabel": "Border Radius",
-        "default": "0px"
-      }
+    "media-showcase.mediaType": {
+      "type": "enum",
+      "values": [
+        "image",
+        "video",
+        "3d-image",
+        "3d-video"
+      ],
+      "default": "image",
+      "persist": false,
+      "description": "Media showcase content type"
+    }
+  },
+  "templateId": "minimal-luxury",
+  "collections": [],
+  "leadSources": {
+    "contact": {
+      "kind": "contact",
+      "label": "Contact",
+      "sectionId": "contact-form"
     },
-    "data": {
-      "colors": {
-        "primary": "#1c1917",
-        "primaryForeground": "#ffffff",
-        "background": "#fafaf9",
-        "surface": "#ffffff",
-        "muted": "#a8a29e",
-        "border": "#e7e5e4"
-      },
-      "typography": {
-        "fontSans": "'DM Sans', sans-serif",
-        "fontSerif": "'Cormorant Garamond', serif"
-      },
-      "radius": {
-        "base": "0px"
-      }
+    "price-unlock": {
+      "kind": "gate",
+      "label": "Price Unlock",
+      "gateId": "lead-capture",
+      "sectionId": "price-unlock"
+    }
+  },
+  "assetStorage": {
+    "type": "r2",
+    "bucket": "template-assets",
+    "prefix": "templates/minimal-luxury"
+  },
+  "globalSections": [
+    "navigation",
+    "footer",
+    "seo"
+  ],
+  "gateActionOwnership": {
+    "lead-capture": {
+      "price": [
+        "price-unlock"
+      ],
+      "brochure": [
+        "brochure"
+      ]
     }
   }
 }
