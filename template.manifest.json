@@ -6,10 +6,6 @@
         {
           "id": "price",
           "mode": "reveal"
-        },
-        {
-          "id": "brochure",
-          "mode": "download"
         }
       ],
       "persist": true,
@@ -793,7 +789,7 @@
           }
         }
       },
-      "enabled": true,
+      "enabled": false,
       "dataType": "object",
       "required": false,
       "showInNav": true,
@@ -974,7 +970,7 @@
           }
         }
       },
-      "enabled": true,
+      "enabled": false,
       "dataType": "object",
       "required": false,
       "showInNav": true,
@@ -1035,7 +1031,7 @@
           }
         }
       },
-      "enabled": true,
+      "enabled": false,
       "dataType": "object",
       "required": false,
       "showInNav": false,
