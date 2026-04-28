@@ -1,0 +1,199 @@
+---
+export interface Props {
+  data: {
+    state?: 'locked' | 'modal' | 'unlocked';
+    sectionEyebrow?: string;
+    sectionTitle?: string;
+    price: string;
+    priceLabel: string;
+    priceNote?: string;
+    unlockButtonText?: string;
+    modalHeading?: string;
+    modalSubtext?: string;
+    modalSubmitText?: string;
+    modalSuccessMessage?: string;
+    submissionEndpoint?: string | null;
+    siteToken?: string | null;
+    supabaseAnonKey?: string | null;
+  };
+}
+
+const { data } = Astro.props;
+---
+
+<section class="py-24 bg-surface border-t border-border" data-dr-section="price-unlock">
+  <div class="max-w-4xl mx-auto px-8 md:px-12">
+    <!-- Section header -->
+    {(data.sectionEyebrow || data.sectionTitle) && (
+      <div class="mb-14 text-center">
+        {data.sectionEyebrow && (
+          <p class="text-[10px] uppercase tracking-[0.4em] text-muted mb-3" data-dr-field="sectionEyebrow">
+            {data.sectionEyebrow}
+          </p>
+        )}
+        {data.sectionTitle && (
+          <h2 class="text-3xl md:text-4xl font-serif font-light" data-dr-field="sectionTitle">
+            {data.sectionTitle}
+          </h2>
+        )}
+      </div>
+    )}
+
+    <!-- Single-column price card -->
+    <div class="bg-surface border border-border p-10 md:p-16 flex flex-col items-center justify-center">
+      <p class="text-[10px] uppercase tracking-[0.4em] text-muted mb-5" data-dr-field="priceLabel">
+        {data.priceLabel}
+      </p>
+
+      <div class="relative mb-6">
+        <p
+          id="price-display"
+          class="text-5xl md:text-6xl font-serif font-light text-primary transition-all duration-700 leading-none"
+          style="filter: blur(14px); user-select: none; pointer-events: none;"
+          data-dr-field="price"
+          data-dr-effect-when="price-unlock.state=locked|price-unlock.state=modal"
+          data-dr-effect="filter:blur(14px);user-select:none;pointer-events:none"
+        >
+          {data.price}
+        </p>
+        {data.priceNote && (
+          <p
+            id="price-note"
+            class="text-sm text-muted mt-3 transition-all duration-700 text-center"
+            style="filter: blur(8px);"
+            data-dr-field="priceNote"
+            data-dr-effect-when="price-unlock.state=locked|price-unlock.state=modal"
+            data-dr-effect="filter:blur(8px)"
+          >
+            {data.priceNote}
+          </p>
+        )}
+      </div>
+
+      <!-- Unlock Button -->
+      <div id="unlock-btn-wrapper" style="" data-dr-hide-when="price-unlock.state=unlocked|price-unlock.state=modal">
+        <button
+          id="price-unlock-btn"
+          class="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-primary border-b border-primary pb-1 hover:text-muted hover:border-muted transition-colors duration-300"
+          data-dr-field="unlockButtonText"
+          data-gate-trigger="lead-capture"
+          data-gate-action="price"
+          data-gate-mode="reveal"
+        >
+          {data.unlockButtonText || 'Unlock Price'}
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Success message -->
+      <p
+        id="price-success-msg"
+        class="text-[11px] uppercase tracking-[0.2em] text-muted mt-2"
+        style="display: none;"
+        data-dr-field="modalSuccessMessage"
+        data-dr-show-when="price-unlock.state=unlocked"
+      >
+        {data.modalSuccessMessage || 'Price unlocked successfully'}
+      </p>
+    </div>
+  </div>
+
+  <!-- Modal (Unlock Price Gate) -->
+  <div
+    id="contact-modal"
+    class="fixed inset-0 bg-primary/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+    style="display: none;"
+    data-dr-show-when="price-unlock.state=modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-heading"
+  >
+    <div class="bg-surface p-10 max-w-md w-full mx-4 relative border border-border">
+      <button
+        id="modal-close"
+        class="absolute top-5 right-5 text-muted hover:text-primary transition-colors duration-200"
+        aria-label="Close"
+        data-gate-close="lead-capture"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <p class="text-[10px] uppercase tracking-[0.4em] text-muted mb-4">Exclusive Pricing</p>
+      <h3
+        id="modal-heading"
+        class="text-2xl md:text-3xl font-serif font-light mb-2"
+        data-dr-field="modalHeading"
+      >
+        {data.modalHeading || 'Unlock Pricing'}
+      </h3>
+      <p class="text-sm text-muted mb-8" data-dr-field="modalSubtext">
+        {data.modalSubtext || 'Please provide your details to unlock the full pricing information.'}
+      </p>
+
+      <form
+        id="unlock-form"
+        class="space-y-5"
+        novalidate
+        data-gate-form="lead-capture"
+        data-gate-form-type="price-unlock"
+        data-endpoint={data.submissionEndpoint || undefined}
+        data-token={data.siteToken || undefined}
+        data-apikey={data.supabaseAnonKey || undefined}
+      >
+        <div>
+          <label class="block text-[10px] uppercase tracking-[0.3em] text-muted mb-2">Full Name</label>
+          <input
+            type="text"
+            name="name"
+            required
+            class="w-full bg-transparent border-b border-border py-2.5 text-primary placeholder-muted focus:outline-none focus:border-primary transition-colors duration-200 text-sm"
+            placeholder="Your name"
+          />
+        </div>
+        <div>
+          <label class="block text-[10px] uppercase tracking-[0.3em] text-muted mb-2">Email Address</label>
+          <input
+            type="email"
+            name="email"
+            required
+            class="w-full bg-transparent border-b border-border py-2.5 text-primary placeholder-muted focus:outline-none focus:border-primary transition-colors duration-200 text-sm"
+            placeholder="your@email.com"
+          />
+        </div>
+        <div>
+          <label class="block text-[10px] uppercase tracking-[0.3em] text-muted mb-2">Phone Number</label>
+          <input
+            type="tel"
+            name="phone"
+            class="w-full bg-transparent border-b border-border py-2.5 text-primary placeholder-muted focus:outline-none focus:border-primary transition-colors duration-200 text-sm"
+            placeholder="Optional"
+          />
+        </div>
+        <div
+          hidden
+          role="alert"
+          class="border border-border bg-primary/[0.03] px-4 py-3 text-sm leading-relaxed text-muted"
+          data-gate-feedback="lead-capture"
+          data-gate-feedback-reason="submission_failed"
+        >
+          <p data-gate-feedback-message>
+            We could not submit your details. Please try again.
+          </p>
+        </div>
+        <div class="pt-4">
+          <button
+            type="submit"
+            class="w-full py-3 bg-primary text-primary-foreground text-[11px] uppercase tracking-[0.3em] hover:bg-primary/90 transition-colors duration-300"
+            data-dr-field="modalSubmitText"
+          >
+            {data.modalSubmitText || 'Unlock Now'}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

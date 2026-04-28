@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ErrorPage from '../components/ErrorPage.astro';
+import { getSectionData } from '../lib/manifest-loader';
+
+const seoData = getSectionData('seo');
+const errorData = getSectionData('error-page');
+
+const minimalSeo = {
+    ...seoData,
+    title: "404 - Page Not Found",
+    description: "Page not found.",
+    noindex: true
+};
+---
+
+<BaseLayout title="404 - Not Found" seo={minimalSeo}>
+  <ErrorPage data={errorData} />
+</BaseLayout>

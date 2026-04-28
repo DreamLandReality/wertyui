@@ -1,0 +1,132 @@
+---
+import Head from '../components/Head.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { getSectionData, isSectionEnabled, getTheme, getStyleOverridesCSS, getStateTypes, getAllSectionData, getNavItems } from '../lib/manifest-loader';
+
+const theme = getTheme();
+const styleOverridesCSS = getStyleOverridesCSS();
+const navData = getSectionData<{
+  logoText: string;
+  logoImageUrl?: string;
+  ctaText?: string;
+  ctaHref?: string;
+}>('navigation');
+const footerData = getSectionData<{
+  copyright: string;
+  branding?: string;
+}>('footer');
+
+export interface Props {
+  title: string;
+  seo: any;
+  transparentNav?: boolean;
+  gateConfigs?: any[];
+}
+
+const { title, seo, transparentNav = false, gateConfigs = [] } = Astro.props;
+const stateTypes = getStateTypes();
+const sectionData = getAllSectionData();
+const navItems = getNavItems('home');
+---
+
+<!DOCTYPE html>
+<html lang={seo.language || 'en'} data-dr-page-id={Astro.url.pathname}>
+  <Head title={title} seo={seo} />
+  <body class="font-sans antialiased bg-background text-primary selection:bg-primary selection:text-primary-foreground">
+    <style define:vars={{
+      primary: theme.colors.primary,
+      "primary-foreground": theme.colors.primaryForeground,
+      background: theme.colors.background,
+      surface: theme.colors.surface,
+      muted: theme.colors.muted,
+      border: theme.colors.border,
+      "font-sans": theme.typography.fontSans,
+      "font-serif": theme.typography.fontSerif,
+      radius: theme.radius.base
+    }}>
+      :root {
+        --primary: var(--primary);
+        --primary-foreground: var(--primary-foreground);
+        --background: var(--background);
+        --surface: var(--surface);
+        --muted: var(--muted);
+        --border: var(--border);
+        --font-sans: var(--font-sans);
+        --font-serif: var(--font-serif);
+        --radius: var(--radius);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      [data-dr-section],
+      [data-dr-generated-anchor] {
+        scroll-margin-top: 96px;
+      }
+    </style>
+
+    {styleOverridesCSS && <style set:html={styleOverridesCSS} />}
+
+    {isSectionEnabled('navigation') && <Nav data={navData} links={navItems} transparentNav={transparentNav} />}
+
+    <main>
+      <slot />
+    </main>
+
+    {isSectionEnabled('footer') && <Footer data={footerData} />}
+
+    <script is:inline define:vars={{ stateTypes: stateTypes, sectionData: sectionData }}>
+      window.__DLR = { ...(window.__DLR || {}), stateTypes, sectionData };
+    </script>
+
+    <script is:inline>
+      (function () {
+        function ensureSectionAnchors() {
+          document.querySelectorAll('[data-dr-section]').forEach(function (el) {
+            var sectionId = el.getAttribute('data-dr-section');
+            if (!sectionId || document.getElementById(sectionId)) return;
+            if (!el.id) {
+              el.id = sectionId;
+              return;
+            }
+            var anchor = document.createElement('span');
+            anchor.id = sectionId;
+            anchor.setAttribute('data-dr-generated-anchor', 'true');
+            anchor.setAttribute('aria-hidden', 'true');
+            anchor.style.cssText = 'display:block;height:0;overflow:hidden;';
+            el.parentNode && el.parentNode.insertBefore(anchor, el);
+          });
+
+          if (window.location.hash) {
+            var target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+            if (target) requestAnimationFrame(function () { target.scrollIntoView({ block: 'start' }); });
+          }
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', ensureSectionAnchors);
+        } else {
+          ensureSectionAnchors();
+        }
+      })();
+    </script>
+
+    <script is:inline src="/preview-runtime.min.js"></script>
+    <script>
+      import '../lib/manifest-injector';
+    </script>
+
+    {gateConfigs.length > 0 && (
+      <script is:inline define:vars={{
+        gates: gateConfigs,
+        stateTypes: stateTypes,
+        sectionData: sectionData
+      }}>
+        window.__DLR = { ...(window.__DLR || {}), gates, stateTypes, sectionData };
+      </script>
+      <script is:inline src="/gate-runtime.min.js"></script>
+    )}
+  </body>
+</html>
